@@ -18,8 +18,8 @@ module.exports = class ReadyEvent extends BaseEvent {
             const attachment = await discordTranscripts.createTranscript(interaction.channel);
             const embedClose = new MessageEmbed()
                     .setTitle("TICKET FERMÉ")
-            interaction.guild.channels.cache.get(`${config.channel_logs}`).send({embed: [embedClose]});
-            interaction.guild.channels.cache.get(`${config.channel_logs}`).send({files: [attachment] });
+                    .setDescription('Voici le transcript')
+            interaction.guild.channels.cache.get(`${config.channel_logs}`).send({content: 'Un nouveau transcript est disponible !', files: [attachment] });
             profilDb.findOneAndUpdate({ userId: interaction.channel.topic}, { ticket: 0}, function (err, docs) {
                 if (err){
                     console.log(err)
